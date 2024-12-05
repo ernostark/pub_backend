@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Drink;
 use App\Http\Resources\Drink as DrinkResource;
 use App\Http\Controllers\Api\ResponseController;
+use App\Http\Requests\DrinkRequest;
 
 class DrinkController extends ResponseController
 {
@@ -24,7 +25,9 @@ class DrinkController extends ResponseController
 
     }
 
-    public function newDrink( Request $request ) {
+    public function newDrink( DrinkRequest $request ) {
+
+        $request->validated();
 
         $drink = new Drink();
         $drink->drink = $request["drink"];
@@ -32,13 +35,13 @@ class DrinkController extends ResponseController
         $drink->type_id = $request["type_id"];
         $drink->package_id = $request["package_id"];
 
-        $drink->save();
+        //$drink->save();
 
-        return $drink;
+        return response( new DrinkResource( $drink ));
 
     }
 
-    public function updateDrink( Request $request ) {
+    public function updateDrink( DrinkRequest $request ) {
 
         $drink = $this->getDrink( $request );
 
@@ -49,7 +52,7 @@ class DrinkController extends ResponseController
 
         $drink->update();
 
-        return $drink;
+        return response( new DrinkResource( $drink ));
 
     }
 
@@ -59,7 +62,7 @@ class DrinkController extends ResponseController
 
         $drink->delete();
 
-        return $drink;
+        return response( new DrinkResource( $drink ));
 
     }
 }
