@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Type extends Model
+class Package extends Model
 {
-    public $timestamp = false;
-
     public function drink() {
  
-        return $this->hasMany( Drink::class );
+        return $this-hasMany( Drink::class );
     }
 }

@@ -5,13 +5,14 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Drink;
+use App\Http\Resources\Drink as DrinkResource;
 
 class DrinkController extends Controller
 {
     public function getDrinks() {
 
-        $drinks = Drink::all();
-        return $drinks;
+        $drinks = Drink::with( "type", "package")->get();
+        return response( DrinkResource::collection( $drinks ));
 
     }
 
