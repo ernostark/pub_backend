@@ -31,6 +31,17 @@ class DrinkRequest extends FormRequest
         ];
     }
 
+    public function messages() {
+        return [
+            "drink.required" => "Név mező nem lehet üres!",
+            "drink.max" => "Túl hosszú név!",
+            "drink.required" => "Mennyiség mező nem lehet üres!",
+            "drink.amount" => "Mennyiség csak szám lehet!",
+            "drink.type" => "Típus mező nem lehet üres!",
+            "drink.package" => "Kiszerelés mező nem lehet üres!"
+        ];
+    }
+
     public function failedValidation( Validator $validator ) {
         throw new HttpResponseException( response()->json([
             "success" => false,
