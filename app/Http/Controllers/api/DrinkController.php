@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Drink;
 use App\Http\Resources\Drink as DrinkResource;
+use App\Http\Controllers\Api\ResponseController;
 
-class DrinkController extends Controller
+class DrinkController extends ResponseController
 {
     public function getDrinks() {
 
@@ -19,7 +20,7 @@ class DrinkController extends Controller
     public function getDrink( Request $request ) {
 
         $drink = Drink::where( "drink", $request["drink"] )->first();
-        return $drink;
+        return response( new DrinkResource( $drink ));
 
     }
 
